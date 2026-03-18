@@ -15,9 +15,11 @@ model User {
   id        String   @id @default(uuid())
   email     String   @unique
   name      String?
-  password  String?
+  password  String
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
+  // Relations
   chats     ChatMember[]
   messages  Message[]
 }
@@ -25,36 +27,42 @@ model User {
 model Chat {
   id        String   @id @default(uuid())
   type      ChatType
-  createdAt DateTime @default(now())
+  name      String?   // only for group chats
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
+  // Relations
   members   ChatMember[]
   messages  Message[]
 }
 
 model ChatMember {
-  id     String @id @default(uuid())
+  id        String   @id @default(uuid())
+  userId    String
+  chatId    String
+  role      ChatRole @default(MEMBER)
+  joinedAt  DateTime @default(now())
 
-  userId String
-  chatId String
-
-  user   User @relation(fields: [userId], references: [id])
-  chat   Chat @relation(fields: [chatId], references: [id])
+  // Relations
+  user      User @relation(fields: [userId], references: [id])
+  chat      Chat @relation(fields: [chatId], references: [id])
 
   @@unique([userId, chatId])
 }
 
 model Message {
-  id        String   @id @default(uuid())
+  id        String        @id @default(uuid())
   content   String
-  type      MessageType @default(TEXT)
+  type      MessageType   @default(TEXT)
 
   chatId    String
   senderId  String
 
+  createdAt DateTime @default(now())
+
+  // Relations
   chat      Chat @relation(fields: [chatId], references: [id])
   sender    User @relation(fields: [senderId], references: [id])
-
-  createdAt DateTime @default(now())
 
   @@index([chatId, createdAt])
 }
@@ -62,6 +70,11 @@ model Message {
 enum ChatType {
   DIRECT
   GROUP
+}
+
+enum ChatRole {
+  ADMIN
+  MEMBER
 }
 
 enum MessageType {
