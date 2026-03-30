@@ -13,10 +13,10 @@ const router = Router();
 router.use(protect);
 
 // SEND MESSAGE TO CHAT
-router.post("/:chatId/messages", sendMessage);
+router.post("/:chatId", sendMessage);
 
 // GET MESSAGES FROM CHAT
-router.get("/:chatId/messages", getMessages);
+router.get("/:chatId", getMessages);
 
 // DELETE MESSAGE
 router.delete("/:messageId", deleteMessage);
