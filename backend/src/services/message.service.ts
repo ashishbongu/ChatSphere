@@ -154,23 +154,12 @@ export const deleteMessage = async (
     });
 
     if (!message) {
-        throw new Error("Message not found");
+        throw new Error("Not Found: Message not found");
     }
 
-    // Only sender or chat admins can delete
+    // Only sender can delete
     if (message.senderId !== userId) {
-        const userRole = await prisma.chatMember.findUnique({
-            where: {
-                userId_chatId: {
-                    userId,
-                    chatId: message.chatId,
-                },
-            },
-        });
-
-        if (!userRole || userRole.role !== "ADMIN") {
-            throw new Error("Unauthorized: Cannot delete this message");
-        }
+        throw new Error("Forbidden: Cannot delete this message");
     }
 
     await prisma.message.delete({
@@ -211,12 +200,12 @@ export const editMessage = async (
     });
 
     if (!message) {
-        throw new Error("Message not found");
+        throw new Error("Not Found: Message not found");
     }
 
     // Only sender can edit
     if (message.senderId !== userId) {
-        throw new Error("Unauthorized: Cannot edit this message");
+        throw new Error("Forbidden: Cannot edit this message");
     }
 
     const updatedMessage = await prisma.message.update({

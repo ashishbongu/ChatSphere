@@ -5,6 +5,7 @@ import { PrismaClient } from "@prisma/client";
 import authRoutes from "./routes/auth.routes";
 import groupRoutes from "./routes/group.routes";
 import messageRoutes from "./routes/message.routes";
+import chatRoutes from "./routes/chat.routes";
 
 dotenv.config();
 
@@ -19,7 +20,8 @@ app.use(express.json());
 // routes
 app.use("/api/auth", authRoutes);
 app.use("/api/groups", groupRoutes);
-app.use("/api/chats", messageRoutes);
+app.use("/api/chats", chatRoutes);
+app.use("/api/messages", messageRoutes);
 
 app.get("/", (req, res) => {
     res.send("API Running");

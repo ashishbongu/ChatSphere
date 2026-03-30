@@ -110,10 +110,16 @@ export const deleteMessage = async (req: AuthRequest & { params: { messageId: st
             message: result.message,
         });
     } catch (error: any) {
-        if (error.message.includes("Unauthorized")) {
+        if (error.message.includes("Not Found")) {
+            return res.status(404).json({
+                success: false,
+                message: error.message.replace("Not Found: ", ""),
+            });
+        }
+        if (error.message.includes("Forbidden")) {
             return res.status(403).json({
                 success: false,
-                message: error.message,
+                message: error.message.replace("Forbidden: ", ""),
             });
         }
 
@@ -157,10 +163,16 @@ export const editMessage = async (req: AuthRequest & { params: { messageId: stri
             message: "Message updated successfully",
         });
     } catch (error: any) {
-        if (error.message.includes("Unauthorized")) {
+        if (error.message.includes("Not Found")) {
+            return res.status(404).json({
+                success: false,
+                message: error.message.replace("Not Found: ", ""),
+            });
+        }
+        if (error.message.includes("Forbidden")) {
             return res.status(403).json({
                 success: false,
-                message: error.message,
+                message: error.message.replace("Forbidden: ", ""),
             });
         }
 
