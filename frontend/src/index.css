@@ -271,6 +271,11 @@ button:active, .btn:active {
   border: 1px solid rgba(226, 232, 240, 0.5);
 }
 
+.dot-grid {
+  background-image: radial-gradient(circle, rgb(0, 0, 0) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
 /* Float animation for orbs */
 @keyframes float {
   0%, 100% { transform: translateY(0px) rotate(0deg); }
