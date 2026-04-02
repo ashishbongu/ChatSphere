@@ -6,7 +6,7 @@ node_modules/
 
 # build output
 dist/
-
+backend/uploads/
 # logs
 logs
 *.log
@@ -17,4 +17,5 @@ yarn-error.log*
 # OS files
 .DS_Store
 Thumbs.db
+
 
