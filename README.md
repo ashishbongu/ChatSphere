@@ -22,10 +22,6 @@ ChatSphere is a full-stack AI-native chat platform built with React, TypeScript,
 - Overview of recent conversations, rooms, and activity analytics.
 - Analytics charts for usage metrics.
 
-### Projects
-- Project-based workspace for organizing AI conversations with contextual files.
-- Project context and uploaded files enrich solo AI prompts.
-
 ### Search
 - Full-text search across conversations, rooms, and messages.
 
