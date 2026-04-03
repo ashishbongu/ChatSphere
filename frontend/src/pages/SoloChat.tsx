@@ -66,11 +66,11 @@ function ProviderModelSelector({
   const modelsForProvider = activeGroup?.models || [];
 
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className={compact ? 'flex flex-row gap-2' : 'flex flex-col gap-1.5'}>
       {/* Provider selector */}
       <div
         className={`rounded-2xl border border-navy-700/70 bg-navy-800/80 ${
-          compact ? 'px-3 py-1.5' : 'px-3.5 py-2.5'
+          compact ? 'min-w-0 flex-1 px-2.5 py-1' : 'px-3.5 py-2.5'
         }`}
       >
         <p className="mb-0.5 text-[9px] uppercase tracking-[0.22em] text-gray-500">API Provider</p>
@@ -411,12 +411,12 @@ export default function SoloChat() {
                     compact
                   />
                 </div>
-                <div className="flex items-center gap-2 rounded-xl border border-navy-700/70 bg-navy-800/80 px-2.5 py-1.5">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-neon-purple to-neon-blue text-[10px] font-bold text-white">
-                    {user?.username?.slice(0, 2).toUpperCase() || <User size={12} />}
+                <div className="flex items-center gap-2 rounded-xl border border-navy-700/70 bg-navy-800/80 px-2.5 py-1.5 max-w-[10rem] flex-shrink-0">
+                  <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-neon-purple to-neon-blue text-[9px] font-bold text-white">
+                    {user?.username?.slice(0, 2).toUpperCase() || <User size={11} />}
                   </div>
-                  <div className="hidden sm:block">
-                    <p className="text-xs font-medium leading-tight text-white">
+                  <div className="hidden min-w-0 sm:block">
+                    <p className="truncate text-[11px] font-medium leading-tight text-white">
                       {user?.displayName || user?.username || 'User'}
                     </p>
                     <p className="text-[9px] leading-tight text-gray-500">Online</p>
@@ -530,13 +530,12 @@ export default function SoloChat() {
                     </button>
                   </div>
                 ) : null}
-                <div className="rounded-2xl border border-navy-700/70 bg-navy-800/90 p-3 shadow-[0_0_0_1px_rgba(168,85,247,0.05)]">
-                  <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                    <div className="min-w-0 px-1">
-                      <p className="text-[10px] uppercase tracking-[0.22em] text-gray-500">Solo AI chat</p>
-                      <p className="mt-1 text-xs text-gray-400">{chatStatusLabel}</p>
+                <div className="rounded-2xl border border-navy-700/70 bg-navy-800/90 p-2.5 shadow-[0_0_0_1px_rgba(168,85,247,0.05)]">
+                  <div className="mb-2 flex items-center gap-3">
+                    <div className="min-w-0 flex-shrink-0 px-0.5">
+                      <p className="text-[9px] uppercase tracking-[0.22em] text-gray-500">Solo AI chat</p>
                     </div>
-                    <div className="w-full sm:max-w-[18rem]">
+                    <div className="flex flex-1 items-center gap-2">
                       <ProviderModelSelector
                         selectedProvider={selectedProvider}
                         selectedModelId={selectedModelId}
