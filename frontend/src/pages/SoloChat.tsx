@@ -29,7 +29,7 @@ import { useAuthStore } from '../store/authStore';
 
 const SOLO_MODEL_STORAGE_KEY = 'chatsphere.solo.model';
 const SOLO_PROVIDER_STORAGE_KEY = 'chatsphere.solo.provider';
-const DEFAULT_COMPOSER_HEIGHT = 228;
+const DEFAULT_COMPOSER_HEIGHT = 170;
 
 const formatDate = (value?: string | null) => {
   if (!value) return 'No activity';
@@ -97,7 +97,7 @@ function ProviderModelSelector({
       {/* Model selector */}
       <div
         className={`rounded-2xl border border-navy-700/70 bg-navy-800/80 ${
-          compact ? 'px-3 py-1.5' : 'px-3.5 py-2.5'
+          compact ? 'min-w-0 flex-1 px-2.5 py-1' : 'px-3.5 py-2.5'
         }`}
       >
         <p className="mb-0.5 text-[9px] uppercase tracking-[0.22em] text-gray-500">Model</p>

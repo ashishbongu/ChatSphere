@@ -32,7 +32,7 @@ function formatRoomSummary(room, currentUserId, messageCount = 0) {
 }
 
 function generatePrivateJoinKey() {
-  return crypto.randomBytes(12).toString('hex').toUpperCase();
+  return crypto.randomBytes(8).toString('hex').toUpperCase();
 }
 
 async function ensureRoomMember(roomId, userId, selection = 'name description tags maxUsers visibility members creatorId createdAt') {

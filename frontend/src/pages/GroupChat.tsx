@@ -1,13 +1,13 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useParams, useNavigate, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, ArrowLeft, Copy, Crown, Globe, Hash, KeyRound, Lock, Pin, BarChart3, Shield, Paperclip, Loader2, UserRoundCheck, X } from 'lucide-react';
+import { Send, ArrowLeft, Copy, Crown, Globe, Hash, KeyRound, Lock, Pin, Shield, Paperclip, Loader2, UserRoundCheck, X } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import MessageBubble from '../components/MessageBubble';
 import TypingIndicator from '../components/TypingIndicator';
 import UserList from '../components/UserList';
 import PinnedMessages from '../components/PinnedMessages';
-import { CreatePollModal, PollCard } from '../components/PollComponents';
+
 import MemberManagement from '../components/MemberManagement';
 import { fetchAvailableModels, type AIModel } from '../api/ai';
 import { fetchMembers, type GroupMember } from '../api/groups';
@@ -16,8 +16,7 @@ import { useRoomStore } from '../store/roomStore';
 import { useAuthStore } from '../store/authStore';
 import { fetchRoomAccess, fetchRoomById, fetchRoomPrivateKey, joinRoomById, uploadFile } from '../api/rooms';
 import type { GroupMessage, RoomAccess } from '../api/rooms';
-import type { Poll } from '../api/polls';
-import { closePoll, fetchPolls, votePoll } from '../api/polls';
+
 import { getModelGroups } from '../utils/aiModels';
 import toast from 'react-hot-toast';
 
@@ -42,11 +41,11 @@ export default function GroupChat() {
   const [showUsers, setShowUsers] = useState(true);
   const [showPinned, setShowPinned] = useState(false);
   const [typingUsers, setTypingUsers] = useState<TypingUser[]>([]);
-  const [showPollModal, setShowPollModal] = useState(false);
+
   const [showMemberPanel, setShowMemberPanel] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isSending, setIsSending] = useState(false);
-  const [polls, setPolls] = useState<Poll[]>([]);
+
   const [roomAccess, setRoomAccess] = useState<RoomAccess | null>(null);
   const [roomLoading, setRoomLoading] = useState(true);
   const [joinKey, setJoinKey] = useState('');
@@ -75,16 +74,7 @@ export default function GroupChat() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
-  const loadPolls = useCallback(async () => {
-    if (!roomId) return;
 
-    try {
-      const nextPolls = await fetchPolls(roomId);
-      setPolls(nextPolls);
-    } catch {
-      setPolls([]);
-    }
-  }, [roomId]);
 
   const loadMembers = useCallback(async () => {
     if (!roomId) return;
@@ -539,24 +529,7 @@ export default function GroupChat() {
     }
   };
 
-  const handlePollVote = async (pollId: string, optionIndex: number) => {
-    try {
-      const updated = await votePoll(pollId, optionIndex);
-      setPolls((current) => current.map((poll) => (poll.id === pollId ? updated : poll)));
-    } catch {
-      toast.error('Failed to update vote');
-    }
-  };
 
-  const handleClosePoll = async (pollId: string) => {
-    try {
-      const updated = await closePoll(pollId);
-      setPolls((current) => current.map((poll) => (poll.id === pollId ? updated : poll)));
-      toast.success('Poll closed');
-    } catch {
-      toast.error('Failed to close poll');
-    }
-  };
 
   if (roomLoading) {
     return (

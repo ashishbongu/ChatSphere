@@ -2,14 +2,57 @@
 
 ChatSphere is a full-stack AI-native chat platform built with React, TypeScript, Vite, Express, MongoDB, Socket.IO, JWT auth, Google OAuth, and a multi-provider backend AI gateway.
 
-## Current AI Snapshot
+## Features
 
-- Solo AI chat runs through `POST /api/chat` and persists conversation-level model, provider, token, and routing metadata.
-- Room AI runs through the `trigger_ai` Socket.IO event and persists room AI replies as normal `Message` documents.
-- The backend AI gateway supports OpenRouter, Gemini direct, xAI Grok direct, Groq direct, Together AI, and Hugging Face router paths when matching API keys are configured.
-- Model discovery is exposed through `GET /api/ai/models` with a client-facing `auto` option.
-- Persistent AI artifacts include memories, conversation insights, room insights, prompt templates, and import sessions.
-- Project context and uploaded files can enrich solo AI prompts.
+### Solo AI Chat
+- Dedicated Solo Chat page (`/chat`) with a three-panel layout: conversation sidebar, main chat area, and a conversation insights panel.
+- **Separate API Provider & Model selection** — Users pick an API provider (e.g. Together AI, Groq, Gemini, OpenRouter) and then choose a model from that provider independently. Both selections persist across sessions via localStorage.
+- Bottom-docked composer with inline provider/model selectors, file attachment support, grammar suggestions, and AI-powered smart replies.
+- Conversation history sidebar with real-time timestamps and delete support.
+- Conversation insights panel (summarize, extract tasks, extract decisions) powered by the selected AI model.
+- Full message metadata display including provider, model, token usage, processing time, and fallback indicators.
+
+### Room / Group Chat
+- Create and join chat rooms with real-time messaging via Socket.IO.
+- AI can be triggered in rooms using `@ai` mentions (opt-in interaction model).
+- Room insights, pinned messages, polls, member management, typing indicators, and read receipts.
+- Report and moderation system for room messages.
+
+### Dashboard
+- Overview of recent conversations, rooms, and activity analytics.
+- Analytics charts for usage metrics.
+
+### Projects
+- Project-based workspace for organizing AI conversations with contextual files.
+- Project context and uploaded files enrich solo AI prompts.
+
+### Search
+- Full-text search across conversations, rooms, and messages.
+
+### User Management
+- JWT access/refresh token authentication with Google OAuth support.
+- User profile management, settings, and theme customization.
+- Admin dashboard for platform management.
+- Password reset flow (forgot password, reset via email).
+
+### AI Capabilities
+- **Multi-provider AI gateway** — Supports OpenRouter, Gemini Direct, xAI Grok Direct, Groq Direct, Together AI, and Hugging Face.
+- Model discovery via `GET /api/ai/models` with a client-facing `auto` option.
+- Smart replies — AI-generated reply suggestions based on conversation context.
+- Grammar checking and correction suggestions.
+- Sentiment analysis on messages.
+- AI memory — extraction, retrieval, and governance across conversations.
+- Conversation insights — summaries, task extraction, decision extraction.
+- File analysis — Upload images, PDFs, code, and text files for AI analysis.
+
+### UI / UX
+- Dark-themed, glassmorphic design with neon-purple/blue accents.
+- Responsive layout with collapsible sidebars.
+- Smooth animations via Framer Motion.
+- Compact, docked composer with inline model controls.
+- Markdown rendering with syntax-highlighted code blocks in AI responses.
+- User avatar badges and online status indicators.
+- Clean navbar with profile dropdown menu.
 
 ## Stack
 
@@ -77,30 +120,6 @@ npm run build
 ```powershell
 cd ../backend
 Get-ChildItem -Path . -Recurse -Filter *.js -File |
-  Where-Object { $_.FullName -notmatch '\node_modules\' -and $_.FullName -notmatch '\dist\' } |
+  Where-Object { $_.FullName -notmatch '\\node_modules\\' -and $_.FullName -notmatch '\\dist\\' } |
   ForEach-Object { node --check $_.FullName }
 ```
-
-## Backend AI Docs
-
-- [Backend AI Overview](docs/backend-ai/01-backend-ai-overview.md)
-- [Runtime Entrypoints And Request Lifecycle](docs/backend-ai/02-runtime-entrypoints-and-request-lifecycle.md)
-- [REST AI API And Contracts](docs/backend-ai/03-rest-ai-api-and-contracts.md)
-- [Socket Room AI And Realtime Lifecycle](docs/backend-ai/04-socket-room-ai-and-realtime-lifecycle.md)
-- [Model Routing Provider Catalog And Fallbacks](docs/backend-ai/05-model-routing-provider-catalog-and-fallbacks.md)
-- [Memory Extraction Retrieval And Governance](docs/backend-ai/06-memory-extraction-retrieval-and-governance.md)
-- [Conversation Insights Summaries And Actions](docs/backend-ai/07-conversation-insights-summaries-and-actions.md)
-- [Persistence Models Import Export And Project Context](docs/backend-ai/08-persistence-models-import-export-and-project-context.md)
-- [Operations Security Admin And Troubleshooting](docs/backend-ai/09-operations-security-admin-and-troubleshooting.md)
-- [Frontend Backend AI Integration](docs/backend-ai/10-frontend-backend-ai-integration.md)
-
-## Existing Docs
-
-- [ARCHITECTURE.md](ARCHITECTURE.md)
-- [CHANGELOG.md](CHANGELOG.md)
-- [IMPLEMENTATION_LOG.md](IMPLEMENTATION_LOG.md)
-- [API Reference](docs/api-reference.md)
-- [Architecture](docs/architecture.md)
-- [Features](docs/features.md)
-- [Setup Guide](docs/setup-guide.md)
-- [WebSocket Events](docs/websocket-events.md)

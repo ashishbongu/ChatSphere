@@ -64,12 +64,12 @@ export default function CreateRoomModal({ isOpen, onClose, onCreate }: Props) {
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
           >
-            <div className="bg-navy-800 rounded-2xl border border-navy-700/50 w-full max-w-lg shadow-2xl shadow-black/50">
+            <div className="bg-navy-800 rounded-2xl border border-navy-700/50 w-full max-w-md shadow-2xl shadow-black/50">
               {/* Header */}
-              <div className="flex items-center justify-between p-6 border-b border-navy-700/50">
+              <div className="flex items-center justify-between px-5 py-3 border-b border-navy-700/50">
                 <div className="flex items-center gap-2">
                   <Sparkles size={20} className="text-neon-purple" />
-                  <h2 className="font-display font-bold text-xl text-white">Create Room</h2>
+                  <h2 className="font-display font-bold text-lg text-white">Create Room</h2>
                 </div>
                 <button
                   onClick={onClose}
@@ -80,82 +80,83 @@ export default function CreateRoomModal({ isOpen, onClose, onCreate }: Props) {
               </div>
 
               {/* Form */}
-              <form onSubmit={handleSubmit} className="p-6 space-y-5">
+              <form onSubmit={handleSubmit} className="px-5 py-4 space-y-3">
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1.5">Room Name</label>
+                  <label className="block text-xs font-medium text-gray-300 mb-1">Room Name</label>
                   <input
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="e.g. Deep Learning Discussions"
-                    className="w-full px-4 py-3 rounded-xl bg-navy-900 border border-navy-600/50 text-white placeholder-gray-600 focus:border-neon-purple/50 transition-colors"
+                    className="w-full px-3 py-2 rounded-lg bg-navy-900 border border-navy-600/50 text-sm text-white placeholder-gray-600 focus:border-neon-purple/50 transition-colors"
                     maxLength={50}
                   />
                   <p className="text-[10px] text-gray-600 mt-1 text-right">{name.length}/50</p>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1.5">Description</label>
+                  <label className="block text-xs font-medium text-gray-300 mb-1">Description</label>
                   <textarea
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="What's this room about?"
-                    rows={3}
-                    className="w-full px-4 py-3 rounded-xl bg-navy-900 border border-navy-600/50 text-white placeholder-gray-600 focus:border-neon-purple/50 transition-colors resize-none"
+                    rows={2}
+                    className="w-full px-3 py-2 rounded-lg bg-navy-900 border border-navy-600/50 text-sm text-white placeholder-gray-600 focus:border-neon-purple/50 transition-colors resize-none"
                   />
                 </div>
 
                 <div>
-                  <label className="flex items-center gap-1.5 text-sm font-medium text-gray-300 mb-1.5">
-                    <Hash size={14} /> Tags
+                  <label className="flex items-center gap-1.5 text-xs font-medium text-gray-300 mb-1">
+                    <Hash size={12} /> Tags
                   </label>
                   <input
                     type="text"
                     value={tagsInput}
                     onChange={(e) => setTagsInput(e.target.value)}
                     placeholder="ai, coding, math (comma-separated)"
-                    className="w-full px-4 py-3 rounded-xl bg-navy-900 border border-navy-600/50 text-white placeholder-gray-600 focus:border-neon-purple/50 transition-colors"
+                    className="w-full px-3 py-2 rounded-lg bg-navy-900 border border-navy-600/50 text-sm text-white placeholder-gray-600 focus:border-neon-purple/50 transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1.5">Room Privacy</label>
+                  <label className="block text-xs font-medium text-gray-300 mb-1">Room Privacy</label>
                   <div className="grid grid-cols-2 gap-3">
                     <button
+
                       type="button"
                       onClick={() => setVisibility('public')}
-                      className={`rounded-xl border px-4 py-3 text-left transition-colors ${
+                      className={`rounded-lg border px-3 py-2 text-left transition-colors ${
                         visibility === 'public'
                           ? 'border-neon-blue/50 bg-neon-blue/10 text-white'
                           : 'border-navy-600/50 bg-navy-900 text-gray-400'
                       }`}
                     >
-                      <div className="flex items-center gap-2 text-sm font-medium">
-                        <Globe size={14} />
+                      <div className="flex items-center gap-2 text-xs font-medium">
+                        <Globe size={12} />
                         Public
                       </div>
-                      <p className="mt-1 text-[11px] text-gray-500">Anyone can join directly.</p>
+                      <p className="mt-0.5 text-[10px] text-gray-500">Anyone can join directly.</p>
                     </button>
                     <button
                       type="button"
                       onClick={() => setVisibility('private')}
-                      className={`rounded-xl border px-4 py-3 text-left transition-colors ${
+                      className={`rounded-lg border px-3 py-2 text-left transition-colors ${
                         visibility === 'private'
                           ? 'border-neon-purple/50 bg-neon-purple/10 text-white'
                           : 'border-navy-600/50 bg-navy-900 text-gray-400'
                       }`}
                     >
-                      <div className="flex items-center gap-2 text-sm font-medium">
-                        <Lock size={14} />
+                      <div className="flex items-center gap-2 text-xs font-medium">
+                        <Lock size={12} />
                         Private
                       </div>
-                      <p className="mt-1 text-[11px] text-gray-500">A join key is generated for members.</p>
+                      <p className="mt-0.5 text-[10px] text-gray-500">A join key is generated for members.</p>
                     </button>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1.5">
+                  <label className="block text-xs font-medium text-gray-300 mb-1">
                     Max Users: {maxUsers}
                   </label>
                   <input
@@ -174,7 +175,7 @@ export default function CreateRoomModal({ isOpen, onClose, onCreate }: Props) {
 
                 <button
                   type="submit"
-                  className="w-full py-3 rounded-xl bg-gradient-to-r from-neon-purple to-neon-blue text-white font-semibold hover:shadow-lg hover:shadow-purple-500/25 transition-all active:scale-[0.98]"
+                  className="w-full py-2.5 rounded-xl bg-gradient-to-r from-neon-purple to-neon-blue text-white text-sm font-semibold hover:shadow-lg hover:shadow-purple-500/25 transition-all active:scale-[0.98]"
                 >
                   Create Room ✦
                 </button>
