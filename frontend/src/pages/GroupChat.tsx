@@ -1005,7 +1005,7 @@ export default function GroupChat() {
                 />
                 <button
                   onClick={() => fileInputRef.current?.click()}
-                  className="p-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-navy-700 transition-all flex-shrink-0"
+                  className="hidden p-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-navy-700 transition-all flex-shrink-0"
                   aria-label="Attach file"
                 >
                   <Paperclip size={16} />

@@ -558,7 +558,7 @@ export default function SoloChat() {
                     />
                     <button
                       onClick={() => fileInputRef.current?.click()}
-                      className="rounded-xl border border-navy-700/70 p-2 text-gray-400 transition-colors hover:text-white"
+                      className="hidden rounded-xl border border-navy-700/70 p-2 text-gray-400 transition-colors hover:text-white"
                       type="button"
                     >
                       <Paperclip size={15} />
